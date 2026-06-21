@@ -108,7 +108,7 @@ export function generateTrafficAdvice(distance, traffic, signalements) {
   const alertCount = signalements.length;
   
   if (traffic.niveau === 'élevé') {
-    advice = `🚨 Embouteillage détecté! `;
+    advice = `Embouteillage détecté! `;
     if (alertCount > 0) {
       const types = [...new Set(signalements.map((s) => s.type))];
       advice += `Problèmes signalés: ${types.join(', ')}. `;
@@ -116,13 +116,13 @@ export function generateTrafficAdvice(distance, traffic, signalements) {
     advice += `Temps estimé: ${timeMin} minutes. `;
     advice += "Il est recommandé de partir maintenant ou d'attendre 30 minutes.";
   } else if (traffic.niveau === 'moyen') {
-    advice = `⚠️ Trafic modéré détecté. `;
+    advice = `Trafic modéré détecté. `;
     if (alertCount > 0) {
       advice += `${alertCount} incident(s) sur votre trajet. `;
     }
     advice += `Temps estimé: ${timeMin} minutes. Départ conseillé dans 10 minutes.`;
   } else {
-    advice = `✅ Circulation fluide. `;
+    advice = `Circulation fluide. `;
     advice += `Temps estimé: ${timeMin} minutes. Vous pouvez partir immédiatement.`;
   }
   
@@ -218,17 +218,17 @@ export function generateMultiRouteAdvice(evaluatedRoutes, recommendedRoute) {
   let advice = "";
   
   if (traffic.niveau === 'élevé') {
-    advice = `🚨 Route ${best.id} : Embouteillage détecté. `;
+    advice = `Route ${best.id} : Embouteillage détecté. `;
     advice += `Temps: ${timeMin} min. `;
     advice += `Considérez les autres routes pour éviter le trafic.`;
   } else if (traffic.niveau === 'moyen') {
-    advice = `⚠️ Route ${best.id} recommandée. `;
+    advice = `Route ${best.id} recommandée. `;
     advice += `Trafic modéré, temps: ${timeMin} min. `;
     if (traffic.signalements.length > 0) {
       advice += `${traffic.signalements.length} incident(s) détecté(s).`;
     }
   } else {
-    advice = `✅ Route ${best.id} recommandée. `;
+    advice = `Route ${best.id} recommandée. `;
     advice += `Circulation fluide, temps: ${timeMin} min. `;
     advice += `Vous pouvez partir immédiatement!`;
   }

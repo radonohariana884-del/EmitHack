@@ -1,10 +1,6 @@
-export default function TrafficInfo({ traffic, distance, estimatedTime }) {
-  const getTrafficEmoji = (level) => {
-    if (level === "élevé") return "🔴";
-    if (level === "moyen") return "🟠";
-    return "🟢";
-  };
+import { MapPin, Clock, Signal } from "lucide-react";
 
+export default function TrafficInfo({ traffic, distance, estimatedTime }) {
   const getTrafficLabel = (level) => {
     if (level === "élevé") return "Embouteillage";
     if (level === "moyen") return "Trafic moyen";
@@ -19,75 +15,28 @@ export default function TrafficInfo({ traffic, distance, estimatedTime }) {
 
   return (
     <div className="traffic-info">
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "12px",
-          marginBottom: "12px",
-        }}
-      >
-        {/* Distance */}
-        <div
-          style={{
-            padding: "10px",
-            backgroundColor: "#f8fafc",
-            borderRadius: "8px",
-            borderLeft: "3px solid #2563eb",
-          }}
-        >
-          <small style={{ color: "#64748b", fontSize: "12px" }}>Distance</small>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: "700",
-              color: "#0f172a",
-              marginTop: "4px",
-            }}
-          >
-            {distance.toFixed(1)} km
+      <div className="traffic-summary-grid">
+        <div className="traffic-summary-card">
+          <div className="traffic-summary-title">
+            <MapPin className="traffic-summary-icon" /> Distance
           </div>
+          <div className="traffic-summary-value">{distance.toFixed(1)} km</div>
         </div>
 
-        {/* Temps estimé */}
-        <div
-          style={{
-            padding: "10px",
-            backgroundColor: "#f8fafc",
-            borderRadius: "8px",
-            borderLeft: "3px solid #8b5cf6",
-          }}
-        >
-          <small style={{ color: "#64748b", fontSize: "12px" }}>Temps estimé</small>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: "700",
-              color: "#0f172a",
-              marginTop: "4px",
-            }}
-          >
-            {estimatedTime} min
+        <div className="traffic-summary-card">
+          <div className="traffic-summary-title">
+            <Clock className="traffic-summary-icon" /> Temps estimé
           </div>
+          <div className="traffic-summary-value">{estimatedTime} min</div>
         </div>
       </div>
 
-      {/* Trafic */}
-      <div
-        style={{
-          padding: "12px",
-          backgroundColor: "#f8fafc",
-          borderRadius: "8px",
-          borderLeft: "3px solid #f97316",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ fontSize: "20px" }}>{getTrafficEmoji(traffic.niveau)}</span>
+      <div className="traffic-status-card">
+        <div className="traffic-status-row">
+          <Signal className="traffic-status-icon" />
           <div>
-            <strong style={{ fontSize: "14px" }}>{getTrafficLabel(traffic.niveau)}</strong>
-            <div style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>
-              {getTrafficDescription(traffic.niveau)}
-            </div>
+            <strong>{getTrafficLabel(traffic.niveau)}</strong>
+            <div className="traffic-status-detail">{getTrafficDescription(traffic.niveau)}</div>
           </div>
         </div>
       </div>

@@ -1,63 +1,169 @@
 ﻿import { motion } from "framer-motion";
-import { Activity, AlertTriangle, Clock, MapPin } from "lucide-react";
+import { Activity, AlertTriangle, Clock, MapPin, Map, Zap, Shield, Users, TrendingDown, Route } from "lucide-react";
 
 const stats = [
-  { title: "Trafic en temps réel", value: "98%", icon: Activity },
-  { title: "Signalements actifs", value: "24", icon: AlertTriangle },
-  { title: "Itinéraires disponibles", value: "3", icon: MapPin },
-  { title: "Gain de temps", value: "15 min", icon: Clock },
+  { title: "Couverture en temps réel", value: "98%", desc: "Données de trafic mises à jour en continu", icon: Activity, color: "from-blue-500 to-cyan-400" },
+  { title: "Signalements actifs", value: "24", desc: "Incidents détectés dans votre région", icon: AlertTriangle, color: "from-orange-500 to-red-400" },
+  { title: "Itinéraires disponibles", value: "3", desc: "Options optimisées par route", icon: Route, color: "from-green-500 to-emerald-400" },
+  { title: "Économies moyennes", value: "15 min", desc: "Par trajet avec SmartTraffic", icon: TrendingDown, color: "from-purple-500 to-pink-400" },
+];
+
+const features = [
+  { icon: Map, title: "Navigation Optimisée", desc: "Trouvez les meilleurs itinéraires en temps réel" },
+  { icon: Zap, title: "Alertes Instantanées", desc: "Recevez les signalements de trafic en direct" },
+  { icon: Shield, title: "Données Sécurisées", desc: "Vos données restent confidentielles" },
 ];
 
 export default function HomePage({ onStart }) {
   return (
-    <div className="home-page flex min-h-screen items-start justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-6 py-12 text-slate-100">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="w-full max-w-5xl rounded-[32px] border border-white/10 bg-slate-950/80 p-10 shadow-[0_40px_120px_-45px_rgba(56,189,248,0.55)] backdrop-blur-xl"
-      >
-        <div className="flex flex-col gap-12">
-          <section className="hero-section text-center">
-            <div className="inline-flex items-center justify-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 shadow-sm">
-              <span className="h-3 w-3 rounded-full bg-emerald-400 animate-pulse" />
-              Assistant de trafic intelligent
-            </div>
-            <h1 className="mt-8 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-              Assistant de trafic intelligent
-            </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              L'intelligence artificielle au service de la mobilité urbaine à Madagascar, avec itinéraires optimisés et signalements en temps réel.
-            </p>
-            <button
-              onClick={onStart}
-              className="mt-10 inline-flex items-center justify-center rounded-full bg-cyan-400 px-14 py-4 text-base font-semibold text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-300 focus:outline-none"
-            >
-              Commencer
-            </button>
-          </section>
+    <div className="home-page-container">
+      {/* Navigation */}
+      <nav className="home-navbar">
+        <div className="navbar-content">
+          <div className="navbar-logo">
+            <Map className="logo-icon" />
+            <span className="logo-text">SmartTraffic</span>
+          </div>
+        </div>
+      </nav>
 
-          <section className="hero-stats grid gap-4 sm:grid-cols-2">
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.title}
-                whileHover={{ y: -4 }}
-                className="stat-card rounded-[28px] border border-white/10 bg-slate-900/80 p-6 shadow-[0_24px_60px_-35px_rgba(56,189,248,0.35)]"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-cyan-300/15 text-cyan-200">
-                    <stat.icon className="h-7 w-7" />
-                  </div>
+      {/* Hero Section */}
+      <section className="hero-wrapper">
+        <div className="hero-grid">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="hero-copy"
+          >
+            <div className="hero-badge">
+              <Zap className="badge-icon" />
+              <span>Solution Intelligente de Trafic</span>
+            </div>
+
+            <h1 className="hero-title">
+              Naviguez intelligemment<br />
+              à Madagascar
+            </h1>
+
+            <p className="hero-subtitle">
+              SmartTraffic vous guide avec des itinéraires optimisés, des alertes en temps réel et une visibilité trafic instantanée.
+            </p>
+
+            <button onClick={onStart} className="hero-cta-primary">
+              Commencer la navigation
+            </button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="hero-visual"
+          >
+            <div className="visual-card">
+              <div className="visual-top">
+                <span className="visual-chip">Trafic en direct</span>
+                <span className="visual-status">Antananarivo</span>
+              </div>
+              <div className="visual-map">
+                <div className="map-dot map-dot-start" />
+                <div className="map-dot map-dot-end" />
+                <div className="map-line" />
+                <div className="map-line map-line-alt" />
+                <div className="map-card-small">
+                  <MapPin className="map-icon" />
                   <div>
-                    <div className="text-sm uppercase tracking-[0.24em] text-slate-400">{stat.title}</div>
-                    <div className="mt-3 text-3xl font-semibold text-white">{stat.value}</div>
+                    <p>Trajet recommandé</p>
+                    <strong>12 min</strong>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </section>
+              </div>
+              <div className="visual-footer">
+                <div>
+                  <p>Trafic fluide</p>
+                  <strong>98% routes claires</strong>
+                </div>
+                <div>
+                  <p>Signalements</p>
+                  <strong>24 actifs</strong>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="stats-section">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="stats-header"
+        >
+          <h2 className="stats-title">Performance et Fiabilité</h2>
+          <p className="stats-subtitle">Des chiffres qui inspirent confiance</p>
+        </motion.div>
+
+        <div className="stats-grid">
+          {stats.map((stat, idx) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={stat.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -8, boxShadow: "0 30px 60px rgba(56, 189, 248, 0.3)" }}
+                className="stat-card-premium"
+              >
+                <div className={`stat-icon-wrapper bg-gradient-to-br ${stat.color}`}>
+                  <Icon className="stat-icon" />
+                </div>
+                <h3 className="stat-value">{stat.value}</h3>
+                <p className="stat-label">{stat.title}</p>
+                <p className="stat-desc">{stat.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="features-section">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="features-header"
+        >
+          <h2 className="features-title">Fonctionnalités Principales</h2>
+        </motion.div>
+
+        <div className="features-grid">
+          {features.map((feature, idx) => {
+            const Icon = feature.icon;
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="feature-card"
+              >
+                <div className="feature-icon-box">
+                  <Icon className="feature-icon" />
+                </div>
+                <h3 className="feature-title">{feature.title}</h3>
+                <p className="feature-desc">{feature.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
     </div>
   );
 }

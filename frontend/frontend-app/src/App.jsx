@@ -4,11 +4,20 @@ import HomePage from "./pages/HomePage";
 import MapView from "./MapView";
 
 function App() {
-  const [started, setStarted] = useState(false);
+  const [page, setPage] = useState("home"); // home | map
+
+  const goToStart = () => {
+    setPage("map");
+  };
+
+  const goToHome = () => {
+    setPage("home");
+  };
 
   return (
     <div className="app-shell">
-      {started ? <MapView /> : <HomePage onStart={() => setStarted(true)} />}
+      {page === "home" && <HomePage onStart={goToStart} />}
+      {page === "map" && <MapView onBackToHome={goToHome} />}
     </div>
   );
 }
